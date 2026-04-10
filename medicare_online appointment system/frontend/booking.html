@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Appointment - Medicare</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="dashboard.html">Medicare</a>
+      <div>
+        <button id="logoutButton" class="btn btn-outline-light btn-sm">Logout</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4">
+    <div class="row gy-4">
+      <div class="col-lg-5">
+        <div class="card shadow-sm p-4">
+          <h3>Book a Doctor</h3>
+          <form id="appointmentForm">
+            <div class="mb-3">
+              <label class="form-label">Doctor</label>
+              <select id="doctorSelect" class="form-select"></select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Date</label>
+              <input type="date" id="appointmentDate" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Time</label>
+              <input type="time" id="appointmentTime" class="form-control" required />
+            </div>
+            <button class="btn btn-primary">Book Appointment</button>
+          </form>
+          <div id="alertBox" class="alert d-none mt-4" role="alert"></div>
+        </div>
+      </div>
+      <div class="col-lg-7" id="historySection"></div>
+    </div>
+  </main>
+  <script src="js/main.js"></script>
+</body>
+</html>
