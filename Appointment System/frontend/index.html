@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medi-Care | Online Appointment System</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <!-- Header -->
+<header>
+    <div class="container">
+        <div class="logo">
+            <i class="fas fa-hospital-user"></i>
+            <h1>Medi-Care</h1>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#doctors">Doctors</a></li>
+                <li><a href="#appointment">Book Appointment</a></li>
+                <li><a href="#my-appointments">My Appointments</a></li>
+                <li><a href="#feedback">Feedback</a></li>
+            </ul>
+        </nav>
+        
+        <div class="header-right">
+            <div class="auth-buttons">
+                <button id="loginBtn" class="btn-auth">Login</button>
+                <button id="registerBtn" class="btn-auth">Register</button>
+                <div id="userMenu" style="display:none;">
+                    <span id="userName"></span>
+                    <button id="logoutBtn" class="btn-auth">Logout</button>
+                </div>
+            </div>
+            
+            <div class="notification-icon" id="notificationIcon">
+                <i class="fas fa-bell"></i>
+                <span id="notificationBadge" class="badge">0</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Notification Panel -->
+    <div id="notificationPanel" class="notification-panel">
+        <div class="notification-header">
+            <h3>Notifications</h3>
+            <button id="closeNotifications"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="notificationsList" class="notifications-list"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Your Health, Our Priority</h2>
+                <p>Book appointments with top doctors online. Quick, easy, and secure.</p>
+                <a href="#appointment" class="btn-primary">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors Section -->
+    <section id="doctors" class="doctors-section">
+        <div class="container">
+            <h2>Our Expert Doctors</h2>
+            <div class="search-bar">
+                <input type="text" id="searchDoctor" placeholder="Search by name or specialization...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div id="doctorsList" class="doctors-grid"></div>
+        </div>
+    </section>
+
+    <!-- Appointment Form Section -->
+    <section id="appointment" class="appointment-section">
+        <div class="container">
+            <h2>Book an Appointment</h2>
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label>Full Name *</label>
+                    <input type="text" id="patientName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="patientEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input type="tel" id="patientPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>Select Doctor *</label>
+                    <select id="doctorId" required></select>
+                </div>
+                <div class="form-group">
+                    <label>Appointment Date *</label>
+                    <input type="date" id="appointmentDate" required>
+                </div>
+                <div class="form-group">
+                    <label>Appointment Time *</label>
+                    <select id="appointmentTime" required>
+                        <option value="">Select Time</option>
+                        <option value="09:00:00">09:00 AM</option>
+                        <option value="10:00:00">10:00 AM</option>
+                        <option value="11:00:00">11:00 AM</option>
+                        <option value="12:00:00">12:00 PM</option>
+                        <option value="14:00:00">02:00 PM</option>
+                        <option value="15:00:00">03:00 PM</option>
+                        <option value="16:00:00">04:00 PM</option>
+                        <option value="17:00:00">05:00 PM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Symptoms (Optional)</label>
+                    <textarea id="symptoms" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Book Appointment</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- My Appointments Section -->
+    <section id="my-appointments" class="appointments-section">
+        <div class="container">
+            <h2>My Appointments</h2>
+            <div class="email-search">
+                <input type="email" id="viewAppointmentsEmail" placeholder="Enter your email to view appointments">
+                <button onclick="viewAppointments()">View Appointments</button>
+            </div>
+            <div id="appointmentsList" class="appointments-list"></div>
+        </div>
+    </section>
+
+    <!-- Feedback Section -->
+    <section id="feedback" class="feedback-section">
+        <div class="container">
+            <h2>Patient Feedback</h2>
+            <div class="feedback-container">
+                <!-- Feedback Form -->
+                <div class="feedback-form-container">
+                    <h3>Share Your Experience</h3>
+                    <form id="feedbackForm">
+                        <div class="form-group">
+                            <label>Your Name *</label>
+                            <input type="text" id="feedbackPatientName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Your Email *</label>
+                            <input type="email" id="feedbackPatientEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Select Doctor *</label>
+                            <select id="feedbackDoctorId" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Overall Rating *</label>
+                            <div class="rating-stars">
+                                <i class="far fa-star" data-rating="1"></i>
+                                <i class="far fa-star" data-rating="2"></i>
+                                <i class="far fa-star" data-rating="3"></i>
+                                <i class="far fa-star" data-rating="4"></i>
+                                <i class="far fa-star" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" id="rating" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Doctor's Behaviour Rating *</label>
+                            <div class="behaviour-stars">
+                                <i class="far fa-star" data-behaviour="1"></i>
+                                <i class="far fa-star" data-behaviour="2"></i>
+                                <i class="far fa-star" data-behaviour="3"></i>
+                                <i class="far fa-star" data-behaviour="4"></i>
+                                <i class="far fa-star" data-behaviour="5"></i>
+                            </div>
+                            <input type="hidden" id="behaviourRating" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Treatment Experience</label>
+                            <textarea id="treatmentExperience" rows="3" placeholder="How was your treatment experience?"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Additional Comments</label>
+                            <textarea id="feedbackComment" rows="3" placeholder="Share your feedback about the doctor..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="recommend" checked>
+                                Would you recommend this doctor to others?
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-submit">Submit Feedback</button>
+                    </form>
+                </div>
+                
+                <!-- Recent Feedback Display -->
+                <div class="recent-feedback">
+                    <h3>Recent Patient Reviews</h3>
+                    <div id="recentFeedbackList" class="feedback-list"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Login to Medi-Care</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" required>
+            </div>
+            <button type="submit" class="btn-submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="switchToRegister">Register here</a></p>
+    </div>
+</div>
+
+<!-- Register Modal -->
+<div id="registerModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Register for Medi-Care</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="regName" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="regEmail" required>
+            </div>
+            <div class="form-group">
+                <label>Phone (Optional)</label>
+                <input type="tel" id="regPhone">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="regPassword" required>
+            </div>
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input type="password" id="regConfirmPassword" required>
+            </div>
+            <button type="submit" class="btn-submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="#" id="switchToLogin">Login here</a></p>
+    </div>
+</div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Medi-Care. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modalMessage"></p>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
